@@ -12,11 +12,13 @@ use File::Move::Undoable;
 use File::Path qw(remove_tree);
 use File::Slurp;
 use File::Temp qw(tempdir);
+use File::Which;
 use Sys::Filesystem::MountPoint qw(:all);
 use Test::More 0.98;
 use Test::Perinci::Tx::Manager qw(test_tx_action);
 
 plan skip_all => "HOME environment not set" unless $ENV{HOME};
+plan skip_all => "rsync not available in PATH" unless which('rsync');
 
 my $tmpdir   = tempdir(CLEANUP=>1);
 my $mphome   = path_to_mount_point($ENV{HOME});
