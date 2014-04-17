@@ -7,8 +7,8 @@ use Log::Any '$log';
 
 use Builtin::Logged qw(system);
 use File::Trash::Undoable;
+use Proc::ChildError qw(explain_child_error);
 use SHARYANTO::File::Util qw(file_exists l_abs_path);
-use SHARYANTO::Proc::ChildError qw(explain_child_error);
 
 # VERSION
 
