@@ -1,5 +1,12 @@
 Revision history for File-Move-Undoable
 
+0.03    2014-05-17 (SHARYANTO)
+
+        - No functional changes.
+
+        - Replace File::Slurp with File::Slurp::Tiny.
+
+
 0.02    2012-09-05 (SHARYANTO)
 
         - No functional changes. Skip test if rsync is not available.

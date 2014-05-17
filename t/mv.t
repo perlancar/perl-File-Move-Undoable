@@ -85,7 +85,7 @@ for my $tdir ($tmpdir, $htmpdir) {
             tmpdir        => $tmpdir,
             f             => "File::Move::Undoable::mv",
             args          => {source=>"s", target=>"$tdir/t",
-                              rsync_opts=>"--foo", # bogus
+                              rsync_opts=>["--foo"], # bogus
                           },
             reset_state   => sub {
                 remove_tree "s", "$tdir/t";
