@@ -1,16 +1,17 @@
 package File::Move::Undoable;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
 use Log::Any '$log';
 
 use Builtin::Logged qw(system);
+use File::MoreUtil qw(file_exists l_abs_path);
 use File::Trash::Undoable;
 use Proc::ChildError qw(explain_child_error);
-use SHARYANTO::File::Util qw(file_exists l_abs_path);
-
-# VERSION
 
 our %SPEC;
 
