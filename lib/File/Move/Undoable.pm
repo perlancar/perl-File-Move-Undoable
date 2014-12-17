@@ -162,7 +162,7 @@ sub mv {
 }
 
 1;
-# ABSTRACT: Move file/directory using rename/rsync, with undo support
+# ABSTRACT:
 
 =head1 FAQ
 
