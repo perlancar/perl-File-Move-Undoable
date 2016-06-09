@@ -8,9 +8,9 @@ use strict;
 use warnings;
 use Log::Any::IfLOG '$log';
 
-use Builtin::Logged qw(system);
 use File::MoreUtil qw(file_exists l_abs_path);
 use File::Trash::Undoable;
+use IPC::System::Options 'system', -log=>1;
 use Proc::ChildError qw(explain_child_error);
 
 our %SPEC;
