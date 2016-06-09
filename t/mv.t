@@ -10,7 +10,7 @@ use lib $Bin, "$Bin/t";
 use File::chdir;
 use File::Move::Undoable;
 use File::Path qw(remove_tree);
-use File::Slurp::Tiny qw(read_file write_file);
+use File::Slurper qw(read_text write_text);
 use File::Temp qw(tempdir);
 use File::Which;
 use Sys::Filesystem::MountPoint qw(:all);
@@ -65,17 +65,17 @@ for my $tdir ($tmpdir, $htmpdir) {
         args          => {source=>"s", target=>"$tdir/t"},
         reset_state   => sub {
             remove_tree "s", "$tdir/t";
-            mkdir "s"; write_file("s/f1", "foo");
+            mkdir "s"; write_text("s/f1", "foo");
         },
         after_do     => sub {
             ok( (-d "$tdir/t"), "t exists");
-            is(scalar(read_file "$tdir/t/f1"), "foo", "t/f1 exists");
+            is(scalar(read_text "$tdir/t/f1"), "foo", "t/f1 exists");
             ok(!(-d "s"), "t doesn't exist");
         },
         after_undo   => sub {
             ok(!(-d "$tdir/t"), "t doesn't exist");
             ok( (-d "s"), "s exists");
-            is(scalar(read_file "s/f1"), "foo", "s/f1 exists");
+            is(scalar(read_text "s/f1"), "foo", "s/f1 exists");
         },
     );
 
@@ -89,7 +89,7 @@ for my $tdir ($tmpdir, $htmpdir) {
                           },
             reset_state   => sub {
                 remove_tree "s", "$tdir/t";
-                mkdir "s"; write_file("s/f1", "foo");
+                mkdir "s"; write_text("s/f1", "foo");
             },
             status       => 532,
             after_do     => sub {
