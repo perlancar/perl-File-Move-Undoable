@@ -1,5 +1,12 @@
 Revision history for File-Move-Undoable
 
+0.08    2016-06-10 (PERLANCAR)
+
+	- No functional changes.
+
+	- [dist] Bump prereq version Test::Perinci::Tx::Manager -> 0.56.
+
+
 0.07    2016-06-09 (PERLANCAR)
 
 	- No functional changes.
