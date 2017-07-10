@@ -6,7 +6,7 @@ package File::Move::Undoable;
 use 5.010001;
 use strict;
 use warnings;
-use Log::Any::IfLOG '$log';
+use Log::ger;
 
 use File::MoreUtil qw(file_exists l_abs_path);
 use File::Trash::Undoable;
@@ -107,10 +107,10 @@ sub mv {
     my $mptarget = Sys::Filesystem::MountPoint::path_to_mount_point($atarget);
     my $same_fs  = $mpsource eq $mptarget;
     if ($same_fs) {
-        $log->tracef("Source %s & target %s are on the same filesystem (%s)",
+        log_trace("Source %s & target %s are on the same filesystem (%s)",
                      $source, $target, $mpsource);
     } else {
-        $log->tracef("Source %s and target %s are on different filesystems ".
+        log_trace("Source %s and target %s are on different filesystems ".
                          "(%s and %s)", $source, $target, $mpsource, $mptarget);
     }
 
@@ -134,7 +134,7 @@ sub mv {
             );
         }
 
-        $log->info("(DRY) ".($te ? "Continue moving" : "Moving").
+        log_info("(DRY) ".($te ? "Continue moving" : "Moving").
                        " $source -> $target ...") if $dry_run;
         return [200, "$source needs to be ".
                     ($te ? "continued to be moved":"moved")." to $target",
@@ -142,7 +142,7 @@ sub mv {
 
     } elsif ($tx_action eq 'fix_state') {
         if ($same_fs) {
-            $log->infof("Renaming %s -> %s ...", $source, $target);
+            log_info("Renaming %s -> %s ...", $source, $target);
             if (rename $source, $target) {
                 return [200, "OK"];
             } else {
@@ -150,7 +150,7 @@ sub mv {
             }
         } else {
             my @cmd = ("rsync", @$rsync_opts, "$source/", "$target/");
-            $log->infof("Rsync-ing %s -> %s ...", $source, $target);
+            log_info("Rsync-ing %s -> %s ...", $source, $target);
             system @cmd;
             return [500, "rsync: ".explain_child_error($?)] if $?;
             return File::Trash::Undoable::trash(
